@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login&Signup</title>
+</head>
+
+<body>
+    <div>
+        <h2 id="ftitle">Login Form</h2>
+        <div>
+            <button onclick="generateForm(event,'login')">Login</button>
+            <button onclick="generateForm(event,'signup')">Signup</button>
+        </div>
+        <div id="form">
+
+        </div>
+    </div>
+    <form onsubmit="handleLogin(event)">
+        <input type="text" placeholder="Email Address" id="email">
+        <input type="password" placeholder="password" id="password">
+        <input type="submit" value="Login">
+    </form>
+    
+    <form onsubmit="handleSignup(event)">
+        <input type="text" placeholder="Email Address" id="email">
+        <input type="password" placeholder="password" id="password" onclick="(event) => {
+            // pass=event.target.value;
+            console.log('heheh');
+            // console.log(pass);
+        }">
+        <input type="password" placeholder="Confirm password" id="passwordCnf" onchange="(event) => {
+            let val=event.target.value;
+            if(val!==pass.slice(0,val.length)){
+                console.log('error');
+            }
+        }">
+        <input type="submit" value="Signup">
+    </form>
+</body>
+
+</html>
+<script>
+    const url = 'https://fine-jade-drill-tux.cyclic.cloud';
+    let form = document.getElementById('form');
+    let prev = null;
+    let pass = null;
+    function generateForm(event, data) {
+        if (prev) {
+            prev.style.backgroundColor = ''
+
+        }
+        event.target.style.backgroundColor = 'green'
+        console.log(event.target.style);
+        prev = event.target;
+    }
+    function handleLogin(event) {
+        event.preventDefault();
+        console.log('working');
+        let payload = {
+            email: event.target.email.value,
+            password: event.target.password.value
+        }
+
+        console.log(payload);
+        // fetch(url, {
+        //     method: 'POST',
+        //     headers: { 'Content-Type': 'applicaton/json' },
+        //     body: JSON.stringify(payload)
+        // })
+
+    }
+    function handleSignup(event) {
+        event.preventDefault();
+        if(event.target.passwordCnf.value==event.target.password.value){
+            let payload = {
+                email: event.target.email.value,
+                password: event.target.password.value
+            }
+            console.log(payload);
+
+        }
+        else{
+            alert('password didn\'t match')
+        }
+        
+    }
+
+</script>
